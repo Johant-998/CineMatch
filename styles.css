@@ -265,34 +265,6 @@ header{padding:0 32px;display:flex;flex-direction:column;border-bottom:1px solid
 .mspin{width:13px;height:13px;border:2px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .7s linear infinite;display:inline-block;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-.apikey-bar{
-  position:fixed;bottom:0;left:0;right:0;
-  background:var(--ink);color:white;
-  padding:10px 32px;
-  display:flex;align-items:center;gap:12px;
-  z-index:70;font-size:13px;
-}
-.apikey-bar label{color:rgba(255,255,255,.6);white-space:nowrap;font-size:12px}
-.apikey-bar input{
-  flex:1;max-width:380px;
-  background:rgba(255,255,255,.1);
-  border:1px solid rgba(255,255,255,.2);
-  border-radius:6px;color:white;
-  padding:7px 12px;font-family:'Inter',sans-serif;font-size:13px;
-  outline:none;
-}
-.apikey-bar input:focus{border-color:rgba(255,255,255,.5)}
-.apikey-bar input::placeholder{color:rgba(255,255,255,.35)}
-.apikey-save{
-  background:var(--primary);color:white;border:none;
-  padding:7px 14px;border-radius:6px;
-  font-family:'Inter',sans-serif;font-size:12px;font-weight:600;
-  cursor:pointer;white-space:nowrap;transition:background .15s;
-}
-.apikey-save:hover{background:var(--primary-h)}
-.apikey-ok{color:#10B981;font-size:12px;font-weight:600;white-space:nowrap}
-.apikey-dismiss{background:none;border:none;color:rgba(255,255,255,.4);cursor:pointer;font-size:16px;padding:0 4px;line-height:1}
-.apikey-dismiss:hover{color:rgba(255,255,255,.8)}
 .rpop-overlay{display:none;position:fixed;inset:0;z-index:300;align-items:flex-end;background:rgba(17,24,39,.35);backdrop-filter:blur(2px)}
 .rpop-overlay.open{display:flex;animation:rovIn .2s ease both}
 @keyframes rovIn{from{opacity:0}to{opacity:1}}
