@@ -13,7 +13,8 @@
 body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden}
 
 /* ── HEADER ── */
-header{padding:14px 32px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);z-index:50}
+header{padding:0 32px;display:flex;flex-direction:column;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);z-index:50}
+.header-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
 .logo{font-size:18px;font-weight:700;color:var(--ink);letter-spacing:-.3px}
 .logo em{font-style:normal;color:var(--primary)}
 .hstats{font-size:12px;color:var(--muted)}
@@ -21,11 +22,34 @@ header{padding:14px 32px;display:flex;align-items:center;justify-content:space-b
 /* ── MAIN ── */
 .main{max-width:1280px;margin:0 auto;padding:24px 32px}
 
-/* tabs */
-.tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:20px}
-.tab{padding:8px 16px;padding-bottom:9px;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'Inter',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .15s;margin-bottom:-1px}
+/* tabs — always in header */
+.tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:0}
+.tab{padding:8px 16px;padding-bottom:10px;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--muted);font-family:'Inter',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .15s;margin-bottom:-1px}
 .tab:hover{color:var(--ink)}
 .tab.on{color:var(--primary);border-bottom-color:var(--primary)}
+
+/* ── MOBILE: tabs compact inside sticky header ── */
+@media(max-width:600px){
+  header{padding:0 16px}
+  .header-row{padding:10px 0}
+  .logo{font-size:16px}
+  .tabs{
+    margin-left:-16px;
+    margin-right:-16px;
+    border-top:1px solid var(--border);
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{
+    flex:1;
+    white-space:nowrap;
+    text-align:center;
+    font-size:12px;
+    padding:10px 8px 11px;
+  }
+  .main{padding:16px 16px 24px}
+}
 
 /* controls */
 .controls{display:grid;grid-template-columns:1fr auto;gap:12px;margin-bottom:20px;align-items:center}
