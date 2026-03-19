@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineMatch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+
+<header>
+  <div class="logo">Cine<em>Match</em></div>
+  <div class="hstats" id="hstats">Cargando...</div>
+</header>
+
+<div class="main">
+
+  <!-- ── HERO ── -->
+  <div class="hero">
+    <div class="hero-top">
+      <div class="hero-text">
+        <h1>Descubre tu próxima <em>película favorita</em></h1>
+        <p>Explora más de 3,800 películas clásicas, filtra por género o época, y deja que la IA analice tus gustos para recomendarte títulos que realmente te van a gustar.</p>
+      </div>
+      <div class="hero-badge">
+        <div class="hero-badge-num" id="heroBadgeNum">3,883</div>
+        <div class="hero-badge-label">películas</div>
+      </div>
+    </div>
+    <div class="hero-steps">
+      <div class="step">
+        <div class="step-icon">🔍</div>
+        <div class="step-body">
+          <div class="step-title">Explora el catálogo</div>
+          <div class="step-desc">Busca por título, filtra por género o ajusta el rango de años para encontrar lo que buscas.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-icon">🎬</div>
+        <div class="step-body">
+          <div class="step-title">Selecciona películas</div>
+          <div class="step-desc">En el modo "Por película similar", marca títulos que te hayan gustado como referencia para la IA.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-icon">✦</div>
+        <div class="step-body">
+          <div class="step-title">Recibe recomendaciones</div>
+          <div class="step-desc">Pulsa "Recomendar con IA" y Claude analizará tus preferencias para sugerirte 10 películas personalizadas.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab on" id="tab-browse" onclick="setMode('browse')">Explorar</button>
+    <button class="tab" id="tab-similar" onclick="setMode('similar')">Por película similar</button>
+    <button class="tab" id="tab-genre" onclick="setMode('genre')">Por géneros</button>
+  </div>
+  <div class="controls">
+    <div class="swrap">
+      <input type="text" id="searchInput" placeholder="Buscar película..." oninput="onSearch()">
+    </div>
+    <button class="btn-ai" onclick="getAIRecs()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      Recomendar con IA
+    </button>
+  </div>
+  <div class="filters-row">
+    <div class="filter-col">
+      <div class="filter-label">Géneros</div>
+      <div class="gpills" id="gpills"></div>
+    </div>
+    <div class="filter-col filter-col--year">
+      <div class="yfilter">
+        <div class="yfilter-title">Filtrar por año</div>
+        <div class="yrow">
+          <label>Desde</label>
+          <input type="range" id="yFrom" min="1919" max="2000" value="1919" oninput="onYear()">
+          <span class="yval" id="yFromV">1919</span>
+        </div>
+        <div class="yrow">
+          <label>Hasta</label>
+          <input type="range" id="yTo" min="1919" max="2000" value="2000" oninput="onYear()">
+          <span class="yval" id="yToV">2000</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="shead">
+    <div class="stitle" id="stitle">Todas las películas</div>
+    <div class="sbadge" id="sbadge"></div>
+  </div>
+  <div class="grid" id="mgrid"></div>
+  <div class="pag" id="pag"></div>
+</div>
+
+<div class="selpanel" id="selpanel">
+  <div class="sellabel">Seleccionadas</div>
+  <div class="selchips" id="selchips"></div>
+  <button class="btn-go" onclick="getAIRecs()">Recomendar</button>
+</div>
+
+<div class="moverlay" id="moverlay" onclick="closeMOverlay(event)">
+  <div class="mmodal">
+    <button class="mmodal-x" onclick="closeModal()">✕</button>
+    <div id="mbody"></div>
+  </div>
+</div>
+
+<div class="rpop-overlay" id="rpopOverlay" onclick="closePop(event)">
+  <div class="rpop">
+    <div class="rpop-hdr">
+      <div>
+        <div class="rpop-eyebrow">Recomendaciones IA</div>
+        <div class="rpop-htitle">Seleccionadas para ti</div>
+      </div>
+      <button class="rpop-close" onclick="closeRecsPopup()">✕</button>
+    </div>
+    <div class="rpop-loading" id="rpopLoading">
+      <div class="rpop-clap">🎬</div>
+      <div class="rpop-ltxt">Analizando preferencias<span class="dots"><span>.</span><span>.</span><span>.</span></span></div>
+      <div class="rpop-lsub">Claude está buscando las mejores películas para ti</div>
+    </div>
+    <div class="rpop-body" id="rpopBody" style="display:none">
+      <div class="feat" id="featCard"></div>
+      <div class="cstrip-wrap">
+        <button class="carrow" onclick="navRec(-1)">‹</button>
+        <div class="cstrip" id="cstrip"></div>
+        <button class="carrow" onclick="navRec(1)">›</button>
+      </div>
+      <div class="rdots" id="rdots"></div>
+    </div>
+  </div>
+</div>
+
+<!-- API KEY BAR -->
+<div class="apikey-bar" id="apikeyBar">
+  <label>🔑 API Key Anthropic</label>
+  <input type="password" id="apikeyInput" placeholder="sk-ant-api03-..." autocomplete="off">
+  <button class="apikey-save" onclick="saveKey()">Guardar</button>
+  <span class="apikey-ok" id="apikeyOk" style="display:none">✓ Guardada</span>
+  <button class="apikey-dismiss" onclick="document.getElementById('apikeyBar').style.display='none'" title="Ocultar">✕</button>
+</div>
+
+  <script src="app.js"></script>
+</body>
+</html>
