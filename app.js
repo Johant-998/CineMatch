@@ -3983,7 +3983,7 @@ function genPoster(m, size='full') {
 }
 
 // ── State ──
-let mode='browse', selG=[], selM=[], yFrom=1919, yTo=2000, sq='', pg=1;
+let mode='browse', selG=[], selM=[], yFrom=1919, yTo=2000, sq='', pg=1, minRating=0;
 const PP = () => window.innerWidth <= 600 ? 10 : 30;
 
 function renderG() {
@@ -4005,11 +4005,24 @@ function onYear() {
   if(yFrom>yTo){yTo=yFrom;document.getElementById('yTo').value=yTo;document.getElementById('yToV').textContent=yTo;}
   pg=1; renderGrid();
 }
+function setRating(min) {
+  minRating = min;
+  document.querySelectorAll('.rpill').forEach(b => {
+    b.classList.toggle('on', +b.dataset.min === min);
+  });
+  pg=1; renderGrid();
+}
 function filtered() {
   return MOVIES.filter(m=>{
     if(sq && !m.title.toLowerCase().includes(sq)) return false;
     const y=+m.year; if(m.year&&y<yFrom) return false; if(m.year&&y>yTo) return false;
     if(selG.length>0 && !selG.some(g=>m.genres.includes(g))) return false;
+    if(minRating > 0) {
+      const imdbR = getImdb(m.id);
+      const mlR   = getRating(m.id);
+      const score = imdbR ? imdbR.avg : (mlR ? mlR.avg * 2 : 0); // normalize ML to ~10 scale
+      if(score < minRating) return false;
+    }
     return true;
   });
 }

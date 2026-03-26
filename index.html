@@ -60,6 +60,20 @@
       </div>
     </div>
   </div>
+
+  <!-- ── GALERÍA DESTACADA ── -->
+  <div class="gallery-section">
+    <div class="gallery-header">
+      <div class="gallery-title">Películas imprescindibles</div>
+      <div class="gallery-subtitle">Los títulos más representativos del cine clásico</div>
+    </div>
+    <div class="gallery-track-wrap">
+      <button class="gallery-arrow left" id="galleryLeft" onclick="galleryScroll(-1)">‹</button>
+      <div class="gallery-track" id="galleryTrack"></div>
+      <button class="gallery-arrow right" id="galleryRight" onclick="galleryScroll(1)">›</button>
+    </div>
+  </div>
+
   <div class="controls">
     <div class="swrap">
       <input type="text" id="searchInput" placeholder="Buscar película..." oninput="onSearch()">
@@ -74,7 +88,7 @@
       <div class="filter-label">Géneros</div>
       <div class="gpills" id="gpills"></div>
     </div>
-    <div class="filter-col filter-col--year">
+    <div class="filter-col filter-col--right">
       <div class="yfilter">
         <div class="yfilter-title">Filtrar por año</div>
         <div class="yrow">
@@ -86,6 +100,17 @@
           <label>Hasta</label>
           <input type="range" id="yTo" min="1919" max="2000" value="2000" oninput="onYear()">
           <span class="yval" id="yToV">2000</span>
+        </div>
+      </div>
+      <div class="rfilter">
+        <div class="yfilter-title">Calificación IMDb</div>
+        <div class="rpills" id="rpills">
+          <button class="rpill on" data-min="0"    onclick="setRating(0)">Todas</button>
+          <button class="rpill"    data-min="6"    onclick="setRating(6)">6+ ★</button>
+          <button class="rpill"    data-min="7"    onclick="setRating(7)">7+ ★</button>
+          <button class="rpill"    data-min="7.5"  onclick="setRating(7.5)">7.5+ ★</button>
+          <button class="rpill"    data-min="8"    onclick="setRating(8)">8+ ★</button>
+          <button class="rpill"    data-min="9"    onclick="setRating(9)">9+ ★</button>
         </div>
       </div>
     </div>

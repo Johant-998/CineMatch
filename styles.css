@@ -638,3 +638,32 @@ header{padding:0 32px;display:flex;flex-direction:column;border-bottom:1px solid
 .mm-ratings {
   margin-bottom: 10px;
 }
+
+/* ── RATING FILTER ── */
+.filter-col--right { display: flex; flex-direction: column; gap: 12px; }
+.filter-col--year { display: flex; flex-direction: column; gap: 12px; }
+.rfilter { }
+.rpills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.rpill {
+  padding: 4px 10px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--muted);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .15s;
+}
+.rpill:hover { border-color: #F59E0B; color: #B45309; background: rgba(245,158,11,.05); }
+.rpill.on { background: rgba(245,158,11,.12); border-color: #F59E0B; color: #92710A; font-weight: 700; }
+
+@media(max-width: 640px) {
+  .filter-col--right { gap: 10px; }
+}
