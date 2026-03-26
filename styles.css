@@ -618,3 +618,23 @@ header{padding:0 32px;display:flex;flex-direction:column;border-bottom:1px solid
 }
 .feat-year .rating-stars { font-size: 12px; }
 .feat-year .rating-star-icon { font-size: 11px; }
+
+/* ── IMDb BADGE variant ── */
+.imdb-badge {
+  background: rgba(245, 197, 24, .12);
+  border-color: rgba(245, 197, 24, .35);
+}
+.imdb-badge .rating-label {
+  font-size: 9px;
+  font-weight: 800;
+  color: #92710A;
+  letter-spacing: .3px;
+  margin-right: 2px;
+}
+.imdb-badge .rating-stars { color: #92710A; }
+.imdb-badge .rating-star-icon { color: #F5C518; }
+
+/* rating row in modal */
+.mm-ratings {
+  margin-bottom: 10px;
+}
